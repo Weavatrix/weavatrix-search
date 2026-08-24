@@ -1,5 +1,12 @@
 # Weavatrix Search
 
+[![CI](https://github.com/Weavatrix/weavatrix-search/actions/workflows/ci.yml/badge.svg)](https://github.com/Weavatrix/weavatrix-search/actions/workflows/ci.yml)
+[![crates.io](https://img.shields.io/crates/v/weavatrix-search.svg)](https://crates.io/crates/weavatrix-search)
+[![docs.rs](https://docs.rs/weavatrix-search/badge.svg)](https://docs.rs/weavatrix-search)
+[![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+The exact-retrieval layer of the [Weavatrix ecosystem](https://weavatrix.com/ecosystem), with output-parity benchmarks against ripgrep.
+
 `weavatrix-search` is a bounded, deterministic repository content-search
 engine for Weavatrix and other Rust applications. It uses
 [`weavatrix-scan`](https://crates.io/crates/weavatrix-scan) for safe,
