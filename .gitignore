@@ -1,3 +1,6 @@
 /target
 /target-*
 /bench-fixtures
+/node/target/
+/node/node_modules/
+/node/*.node

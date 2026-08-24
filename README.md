@@ -3,6 +3,7 @@
 [![CI](https://github.com/Weavatrix/weavatrix-search/actions/workflows/ci.yml/badge.svg)](https://github.com/Weavatrix/weavatrix-search/actions/workflows/ci.yml)
 [![crates.io](https://img.shields.io/crates/v/weavatrix-search.svg)](https://crates.io/crates/weavatrix-search)
 [![docs.rs](https://docs.rs/weavatrix-search/badge.svg)](https://docs.rs/weavatrix-search)
+[![npm](https://img.shields.io/npm/v/weavatrix-search.svg)](https://www.npmjs.com/package/weavatrix-search)
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 The exact-retrieval layer of the [Weavatrix ecosystem](https://weavatrix.com/ecosystem), with output-parity benchmarks against ripgrep.
@@ -259,6 +260,43 @@ exceptions, files no larger than 300 physical lines, functions no larger than
 The internal code does not import public facade re-exports back into lower
 layers. This keeps the public API stable without turning `lib.rs` into a hidden
 dependency hub.
+
+## Node.js and Bun
+
+The `weavatrix-search` npm package exposes the same Rust engine through
+Node-API. It is not a JavaScript port, not a CLI wrapper, and it spawns no
+process:
+
+```console
+npm install weavatrix-search
+# or: bun add weavatrix-search
+```
+
+```js
+const { search, buildIndex, openIndex } = require('weavatrix-search')
+
+const report = await search(process.cwd(), 'TODO', { case: 'smart', afterContext: 1 })
+console.log(report.occurrences, 'occurrences in', report.filesWithMatches, 'files')
+
+const index = await buildIndex(process.cwd(), { path: '.weavatrix/search.index' })
+const hits = await openIndex('.weavatrix/search.index').search({ regex: 'export function \\w+' })
+```
+
+`search` runs outside the JavaScript event loop and accepts an `AbortSignal`.
+Queries are a literal string, `{ regex }`, or `{ any: [...] }`. Persistent
+indexes expose `search`, `save`, `rebuild`, and `applyEvents` for watcher
+deltas, so an editor or agent never rescans a repository it already indexed.
+
+One self-contained package supports Node.js 18+ and Bun 1.4+ and carries
+native binaries for Windows, macOS, and glibc Linux on x64 and arm64 without
+an install script, a download, or public platform-package names.
+
+The [Node/Bun benchmark report](node/benchmark/RESULTS.md) compares an
+identical sorted match list against `fdir` plus `fs.readFileSync` plus
+per-line JavaScript testing — what a Node consumer would otherwise write, not
+ripgrep. On a 15.9 MB corpus Weavatrix won a cold search by 3.15x on Node and
+3.50x on Bun, and a repeated query through a persistent index by 212.57x and
+209.58x.
 
 ## Package boundary
 

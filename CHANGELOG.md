@@ -4,6 +4,19 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+- Publish one self-contained `weavatrix-search` npm package for Node.js 18+
+  and Bun 1.4+, carrying all six native bindings (Windows, macOS, and glibc
+  Linux on x64 and arm64) in a single tarball with no install script, no
+  download, and no public platform-package names.
+- Expose asynchronous and synchronous repository search, literal/regex/ordered
+  multi-pattern queries, the full search policy surface, and persistent
+  indexes with `save`, `rebuild`, and watcher-driven `applyEvents` updates,
+  all with TypeScript types.
+- Bridge `AbortSignal` to the scanner cancellation token so an in-flight
+  search stops cooperatively and rejects with `AbortError`.
+- Add the `Node and Bun native bindings` and `Publish npm package` workflows
+  and an output-equivalent benchmark against `fdir` plus `fs.readFileSync`.
+
 ## 0.3.1 - 2026-07-30
 
 - split archive, collector, index, live-index, matching, options, output,

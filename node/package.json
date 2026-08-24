@@ -1,0 +1,43 @@
+{
+  "name": "weavatrix-search",
+  "version": "0.3.2",
+  "description": "Bounded, ignore-aware Rust repository content search for Node.js and Bun",
+  "license": "MIT",
+  "author": "Sergii Ziborov <sergii.ziborov@gmail.com>",
+  "homepage": "https://weavatrix.com/ecosystem",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Weavatrix/weavatrix-search.git",
+    "directory": "node"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": ["lib/", "index.js", "index.d.ts", "*.node", "README.md"],
+  "engines": { "node": ">=18" },
+  "publishConfig": { "registry": "https://registry.npmjs.org/", "access": "public" },
+  "keywords": ["search", "grep", "code-search", "repository", "rust", "node-api", "bun"],
+  "napi": {
+    "binaryName": "weavatrix-search",
+    "targets": [
+      "x86_64-pc-windows-msvc",
+      "aarch64-pc-windows-msvc",
+      "x86_64-apple-darwin",
+      "aarch64-apple-darwin",
+      "x86_64-unknown-linux-gnu",
+      "aarch64-unknown-linux-gnu"
+    ]
+  },
+  "scripts": {
+    "build": "napi build --platform --release --no-js",
+    "build:debug": "napi build --platform --no-js",
+    "build:windows": "napi build --platform --release --no-js --target x86_64-pc-windows-msvc",
+    "build:windows:debug": "napi build --platform --no-js --target x86_64-pc-windows-msvc",
+    "test": "node --test test/search.test.js",
+    "test:bun": "bun test ./test",
+    "bench": "node benchmark/node-baseline.mjs"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.8.6",
+    "fdir": "^6.5.0"
+  }
+}
