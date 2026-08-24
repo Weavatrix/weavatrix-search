@@ -171,6 +171,7 @@ export interface IndexUpdateReport {
   contentBytes: number
   revision: string
   fullRebuild: boolean
+  /** Scanner evidence for the changed-file pass, or the first root of a rebuild. */
   changedScan: ScanRootReport | null
 }
 
