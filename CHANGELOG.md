@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+- Raise `weavatrix-scan` to 0.5 for the hardened watch and policy contracts.
+
 - Publish one self-contained `weavatrix-search` npm package for Node.js 18+
   and Bun 1.4+, carrying all six native bindings (Windows, macOS, and glibc
   Linux on x64 and arm64) in a single tarball with no install script, no
